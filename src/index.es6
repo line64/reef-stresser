@@ -27,9 +27,9 @@ async function start() {
   let Gauge = clui.Gauge;
 
   let brokerFacade = new SqsBrokerFacade({
-    region: 'sa-east-1',
-    accessKeyId: 'AKIAIZ4ONXIKT5EUBQDA',
-    secretAccessKey: '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',
+    region: process.env.AWS_REGION,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
     serviceDomain: 'service-mock',
     serviceLane: 'shared',
     clientDomain: 'stress-tester',
