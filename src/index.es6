@@ -2,6 +2,9 @@ import { ReefClient, SqsBrokerFacade } from 'reef-client';
 import async from 'async';
 import clui from 'clui';
 import clear from 'clear';
+import dotenv from 'dotenv';
+
+dotenv.load();
 
 function dispatchOneTransaction(client, sleep, next) {
 
@@ -38,11 +41,15 @@ async function start() {
 
   let client = new ReefClient(brokerFacade);
 
-  console.log('setting up client');
-  await client.setup();
-
-  console.log('starting up client');
-  await client.start();
+  try {
+    console.log('setting up client');
+    await client.setup();
+    console.log('starting up client');
+    await client.start();
+  }
+  catch (err) {
+    console.error(err);
+  }
 
   clear(true);
 
@@ -105,5 +112,5 @@ let sleep = 1000/tps;
 try {
   start();
 } catch (err) {
-  console.log(err);
+  console.error(err);
 }
